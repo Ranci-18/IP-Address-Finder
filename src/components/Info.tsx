@@ -5,10 +5,6 @@ const Info: React.FC = () => {
     const [info, setInfo] = useState<IpInfo | null>(null);
     const [ip, setIp] = useState('');
 
-    useEffect(() => {
-        console.log(info);
-    }, [info]);
-
     interface IpInfo {
         query: string,
         country: string,
