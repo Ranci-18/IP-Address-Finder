@@ -14,7 +14,7 @@ const Info: React.FC = () => {
         country: string;
         loc: string;
         org: string;
-        timzone: string;
+        timezone: string;
     }
     
     const isIpInfo = (data: any): data is IpInfo => {
@@ -25,17 +25,20 @@ const Info: React.FC = () => {
             typeof data.country === 'string' &&
             typeof data.loc === 'string' &&
             typeof data.org === 'string' &&
-            typeof data.timzone === 'string';
+            typeof data.timezone === 'string';
     }
 
     const getIpInfo = async (): Promise<void> => {
         try {
-            const response = fetch(`https://ipinfo.io/{ip}?token=e423fdda4d7df5`);
-            const data = (await response).json();
+            const response = await fetch(`https://ipinfo.io/${ip}?token=e423fdda4d7df5`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
             if (isIpInfo(data)) {
-                setCity(data?.city);
-                setCountry(data?.country);
-                setIsp(data?.org);
+                setCity(data.city);
+                setCountry(data.country);
+                setIsp(data.org);
             }
         } catch (error) {
             console.error(error);
@@ -55,16 +58,21 @@ const Info: React.FC = () => {
                 <input type="button" onClick={getIpInfo} value="Get Location" />
             </div>
             <div id="output">
-                {ip && <p>your IP is <b>{ip}</b></p>}
-                {city && country && 
-                <>
-                    <p>Approximate location</p>
-                    <p><b>{city}, {country}</b></p>
-                </>}
-                {isp && <>
-                    <p>Internet Service Provider</p>
-                    <p><b>{isp}</b></p>
-                </>}
+                <u>Your IP's location and ISP</u>
+                {   
+                    city && country && 
+                    <>
+                        <p>Approximate location</p>
+                        <p><b>{city}, {country}</b></p>
+                    </>
+                }
+                {
+                    isp && 
+                    <>
+                        <p>Internet Service Provider</p>
+                        <p><b>{isp}</b></p>
+                    </>
+                }
             </div>
         </div>
     );
