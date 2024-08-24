@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 
 const App: React.FC = () => {
   return (
-    <div>
+    <div id='app'>
         <h1>IP Finder</h1>
     </div>
   );
