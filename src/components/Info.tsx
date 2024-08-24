@@ -1,56 +1,57 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Info: React.FC = () => {
-    const [ip, setIp] = useState<string>('');
-    const [city, setCity] = useState<string>('');
-    const [country, setCountry] = useState<string>('');
-    const [isp, setIsp] = useState<string>('');
+    const [info, setInfo] = useState<IpInfo | null>(null);
+    const [ip, setIp] = useState('');
+
+    useEffect(() => {
+        console.log(info);
+    }, [info]);
 
     interface IpInfo {
-        ip: string;
-        city: string;
-        region: string;
-        country: string;
-        loc: string;
-        org: string;
-        timezone: string;
+        query: string,
+        country: string,
+        city: string,
+        lat: number,
+        lon: number,
+        isp: string
     }
     
     const isIpInfo = (data: any): data is IpInfo => {
         return data &&
-            typeof data.ip === 'string' &&
+            typeof data.query === 'string' &&
             typeof data.city === 'string' &&
-            typeof data.region === 'string' &&
-            typeof data.country === 'string' &&
-            typeof data.loc === 'string' &&
-            typeof data.org === 'string' &&
-            typeof data.timezone === 'string';
+            typeof data.lat === 'number' &&
+            typeof data.lon === 'number' &&
+            typeof data.country === 'string';
     }
 
     const getIpInfo = async (): Promise<void> => {
         try {
-            const response = await fetch(`https://ipinfo.io/${ip}?token=e423fdda4d7df5`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+            const response = await fetch(`http://ip-api.com/json/${ip}`);
+            if (response.ok) {
+                console.log('Response OK');
             }
             const data = await response.json();
+            console.log(data);
             if (isIpInfo(data)) {
-                setCity(data.city);
-                setCountry(data.country);
-                setIsp(data.org);
+                setInfo(data);
             }
+            
+            console.log(data.city, data.country_name, data.location.country_flag_emoji);
         } catch (error) {
             console.error(error);
         }
     }
-
+    
     return (
         <div id='info'>
             <div id="input">
                 <input 
                     type="text" 
-                    placeholder="Enter IP addr" 
+                    placeholder="Enter IP addr"
+                    value={ip}
                     onChange={(e) => {
                         setIp(e.target.value)
                         }} 
@@ -58,21 +59,11 @@ const Info: React.FC = () => {
                 <input type="button" onClick={getIpInfo} value="Get Location" />
             </div>
             <div id="output">
-                <u>Your IP's location and ISP</u>
-                {   
-                    city && country && 
-                    <>
-                        <p>Approximate location</p>
-                        <p><b>{city}, {country}</b></p>
-                    </>
-                }
-                {
-                    isp && 
-                    <>
-                        <p>Internet Service Provider</p>
-                        <p><b>{isp}</b></p>
-                    </>
-                }
+                <h3>Your IP's location</h3>
+                <h4>Approximate location</h4>
+                <p>{info?.city} {info?.country}</p>
+                <p>Internet Service Provider</p>
+                <p><b>{info?.lat},{info?.lon}{info?.isp}</b></p>
             </div>
         </div>
     );
