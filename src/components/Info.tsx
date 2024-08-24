@@ -59,11 +59,14 @@ const Info: React.FC = () => {
                 <input type="button" onClick={getIpInfo} value="Get Location" />
             </div>
             <div id="output">
-                <h3>Your IP's location</h3>
-                <h4>Approximate location</h4>
-                <p>{info?.city} {info?.country}</p>
-                <p>Internet Service Provider</p>
-                <p><b>{info?.lat},{info?.lon}{info?.isp}</b></p>
+                {info && 
+                (<>
+                    <h3>Your IP's location</h3>
+                    <p><b>Approximate location: </b>{info?.city}, {info?.country}</p>
+                    <p><b>Internet Service Provider: </b><u>{info?.isp}</u></p>
+                    <p><b>Latitude: </b><u>{info?.lat}</u> <b>Longitude: </b><u>{info?.lon}</u></p>
+                </>)}
+                
             </div>
         </div>
     );
