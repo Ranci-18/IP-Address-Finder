@@ -44,7 +44,6 @@ const Info: React.FC = () => {
 
     return (
         <div id='info'>
-            <p>Enter an IP address to get information about</p>
             <div id="input">
                 <input 
                     type="text" 
@@ -53,14 +52,19 @@ const Info: React.FC = () => {
                         setIp(e.target.value)
                         }} 
                     />
-                <input type="button" onClick={getIpInfo} />
+                <input type="button" onClick={getIpInfo} value="Get Location" />
             </div>
             <div id="output">
-                <p>your IP is <b>{ip}</b></p>
-                <p>Approximate location</p>
-                <p><b>{city}, {country}</b></p>
-                <p>Internet Service Provider</p>
-                <p><b>{isp}</b></p>
+                {ip && <p>your IP is <b>{ip}</b></p>}
+                {city && country && 
+                <>
+                    <p>Approximate location</p>
+                    <p><b>{city}, {country}</b></p>
+                </>}
+                {isp && <>
+                    <p>Internet Service Provider</p>
+                    <p><b>{isp}</b></p>
+                </>}
             </div>
         </div>
     );
