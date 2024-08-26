@@ -1,5 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import Map from "./Map";
+import '../sass/info.sass';
 
 const Info: React.FC = () => {
     const [info, setInfo] = useState<IpInfo | null>(null);
@@ -43,7 +45,7 @@ const Info: React.FC = () => {
     
     return (
         <div id='info'>
-            <div id="input">
+            <div id="output1">
                 <input 
                     type="text" 
                     placeholder="Enter IP addr"
@@ -53,8 +55,7 @@ const Info: React.FC = () => {
                         }} 
                     />
                 <input type="button" onClick={getIpInfo} value="Geo Locate" />
-            </div>
-            <div id="output">
+
                 {info && 
                 (<>
                     <h3>Your IP's location</h3>
@@ -62,7 +63,9 @@ const Info: React.FC = () => {
                     <p><b>Internet Service Provider: </b><u>{info?.isp}</u></p>
                     <p><b>Latitude: </b><u>{info?.lat}</u> <b>Longitude: </b><u>{info?.lon}</u></p>
                 </>)}
-                
+            </div>
+            <div id="output2">
+                <Map latitude={info?.lat || 0} longitude={info?.lon || 0} />
             </div>
         </div>
     );

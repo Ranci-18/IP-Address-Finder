@@ -2,6 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Info from './components/Info';
 
+
 const App: React.FC = () => {
   return (
     <div id='app'>
