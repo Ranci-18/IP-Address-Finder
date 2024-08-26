@@ -52,7 +52,7 @@ const Info: React.FC = () => {
                         setIp(e.target.value)
                         }} 
                     />
-                <input type="button" onClick={getIpInfo} value="Get Location" />
+                <input type="button" onClick={getIpInfo} value="Geo Locate" />
             </div>
             <div id="output">
                 {info && 
