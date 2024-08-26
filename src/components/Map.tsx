@@ -33,7 +33,7 @@ const Map: React.FC<MapProps> = ({latitude, longitude}) => {
                 .addTo(map)
                 .bindPopup('Default Location')
                 .openPopup();
-    
+            
             // perform map cleanup
             return () => {
                 map.remove();
