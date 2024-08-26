@@ -54,7 +54,7 @@ const Map: React.FC<MapProps> = ({latitude, longitude}) => {
                 iconUrl: 'https://img.icons8.com/ios/50/000000/marker.png',
                 iconSize: [32, 32],
                 iconAnchor: [16, 32],
-                popupAnchor: [0, -100],
+                popupAnchor: [0, -40],
             });
         
             // add a marker to the map
