@@ -60,9 +60,9 @@ const Info: React.FC = () => {
 
                 {info && 
                 (<>
-                    <h3>Your IP's location</h3>
-                    <p><b>Approximate location: </b>{info?.city}, {info?.country}</p>
-                    <p><b>Internet Service Provider: </b><u>{info?.isp}</u></p>
+                    <h3><u>Your IP's location</u></h3>
+                    <p><b>Approximate location: </b><u>{info?.city}, {info?.country}</u></p>
+                    <p><b>ISP: </b><u>{info?.isp}</u></p>
                     <p><b>Latitude: </b><u>{info?.lat}</u> <b>Longitude: </b><u>{info?.lon}</u></p>
                 </>)}
             </div>

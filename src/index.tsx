@@ -6,7 +6,7 @@ import './sass/index.sass';
 
 const App: React.FC = () => {
   return (
-    <div id='app' style={{padding: '20px'}}>
+    <div id='app'>
         <h1 style={{textAlign: 'center',}}>IP Finder</h1>
         <Info />
     </div>
