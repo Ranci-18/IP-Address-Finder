@@ -7,6 +7,7 @@ const Info: React.FC = () => {
     const [info, setInfo] = useState<IpInfo | null>(null);
     const [ip, setIp] = useState('');
 
+    // interface for the IP info
     interface IpInfo {
         query: string,
         country: string,
@@ -16,6 +17,7 @@ const Info: React.FC = () => {
         isp: string
     }
     
+    // type guard for the IP info
     const isIpInfo = (data: any): data is IpInfo => {
         return data &&
             typeof data.query === 'string' &&
@@ -25,6 +27,7 @@ const Info: React.FC = () => {
             typeof data.country === 'string';
     }
 
+    // fetch
     const getIpInfo = async (): Promise<void> => {
         try {
             const response = await fetch(`http://ip-api.com/json/${ip}`);
@@ -37,7 +40,6 @@ const Info: React.FC = () => {
                 setInfo(data);
             }
             
-            console.log(data.city, data.country_name, data.location.country_flag_emoji);
         } catch (error) {
             console.error(error);
         }
