@@ -29,8 +29,12 @@ const Info: React.FC = () => {
 
     // fetch
     const getIpInfo = async (): Promise<void> => {
+        if (!ip) {
+            alert('Please enter an IP address');
+            return;
+        }
         try {
-            const response = await fetch(`/api/data`);
+            const response = await fetch(`/api/data${ip}`);
             if (response.ok) {
                 console.log('Response OK');
             }

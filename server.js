@@ -4,7 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 // proxy route and request to the API
-app.get('/api/data', async (req, res) => {
+app.get('/api/data:ip', async (req, res) => {
     const { ip } = req.params;
     try {
         const response = await axios.get(`http://ip-api.com/json/${ip}`);
