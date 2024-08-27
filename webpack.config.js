@@ -36,6 +36,9 @@ module.exports = {
         static: './dist',
         compress: true,
         hot: true,
+        proxy: {
+            '/api': 'http://localhost:8080',
+        }
     },
     devtool: 'source-map',
 }

@@ -30,7 +30,7 @@ const Info: React.FC = () => {
     // fetch
     const getIpInfo = async (): Promise<void> => {
         try {
-            const response = await fetch(`http://ip-api.com/json/${ip}`);
+            const response = await fetch(`/api/data`);
             if (response.ok) {
                 console.log('Response OK');
             }
